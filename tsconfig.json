@@ -14,7 +14,8 @@
     "paths": {
       "@/*":["*"],
       "@/test/*":[".../tests/*"]
-    }
+    },
+    "lib": ["esnext"],
   },
   "include": ["src","tests"]
 }
