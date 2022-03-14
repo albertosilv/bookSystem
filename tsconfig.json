@@ -12,10 +12,15 @@
     "skipLibCheck": true     ,
     "sourceMap": true  ,                          /* Skip type checking all .d.ts files. */
     "paths": {
-      "@/*":["*"],
-      "@/test/*":[".../tests/*"]
+      "@test/*": ["__test__/*"],
+      "@modules/*": ["modules/*"],
+      "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"],
+      "@errors/*": ["errors/*"],
+      "@utils/*": ["utils/*"]
     },
     "lib": ["esnext"],
   },
   "include": ["src","tests"]
+  
 }
