@@ -9,3 +9,58 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Institution {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  street     String   @db.VarChar(255)
+  number     String   @db.VarChar(255)
+  district   String   @db.VarChar(255)
+  zipcode   String   @db.VarChar(255)
+  complement String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  administrator   Administrator?  
+  books   Book[]  
+}
+
+model Administrator {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String
+  user    String  @unique
+  password String 
+  tokenPassword String?
+  tokenPassowordExpired DateTime? 
+  confirmEmail  Boolean  @default(false)
+  institution   Institution     @relation(fields: [institutionId], references: [id])
+  institutionId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Book {
+  id      Int      @id @default(autoincrement())
+  name    String
+  edition    String  
+  year DateTime 
+  releaseData DateTime
+  Condition BookCondition? 
+  confirmEmail  Boolean  @default(false)
+  institution   Institution     @relation(fields: [institutionId], references: [id])
+  institutionId  Int
+  quantity Int
+  street     String   @db.VarChar(255)
+  number     String   @db.VarChar(255)
+  district   String   @db.VarChar(255)
+  zipcode   String   @db.VarChar(255)
+  complement String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+enum BookCondition {
+  NEW
+  USED
+  DAMAGED
+}

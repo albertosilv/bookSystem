@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOCAL_PATH=mongo-local
+LOCAL_PATH=post-local
 
 LOG_PATH=/var/log
 mkdir -p $LOG_PATH
@@ -53,12 +53,12 @@ echo $(date) > $LOG
 
         # Capturando variáveis de ambiente
         echo "Capturando variaveis..."
-        MONGO_USERNAME=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.MONGO_USERNAME')
-        MONGO_PASSWORD=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.MONGO_PASSWORD')
-        MONGO_PORT=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.MONGO_PORT')
-        MONGO_DB=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.MONGO_DB')
-        MONGO_HOST=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.MONGO_HOST')
-        MONGO_DATA_PATH=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.MONGO_DATA_PATH')
+        MONGO_USERNAME=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.POST_USERNAME')
+        MONGO_PASSWORD=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.POST_PASSWORD')
+        MONGO_PORT=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.POST_PORT')
+        MONGO_DB=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.POST_DB')
+        MONGO_HOST=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.POST_HOST')
+        MONGO_DATA_PATH=$(/opt/elasticbeanstalk/bin/get-config environment | jq -r '.POST_DATA_PATH')
         
         echo "Removendo arquivo de variaveis de ambiente..."
         DOTENV_PATH=dev/${LOCAL_PATH}/.env
@@ -70,12 +70,12 @@ echo $(date) > $LOG
 
         # Criando novo arquivo de variaveis de ambiente
         touch ${DOTENV_PATH}
-        printf "MONGO_USERNAME=${MONGO_USERNAME}\n" >> ${DOTENV_PATH}
-        printf "MONGO_PASSWORD=${MONGO_PASSWORD}\n" >> ${DOTENV_PATH}
-        printf "MONGO_PORT=${MONGO_PORT}\n" >> ${DOTENV_PATH}
-        printf "MONGO_DB=${MONGO_DB}\n" >> ${DOTENV_PATH}
-        printf "MONGO_HOST=${MONGO_HOST}\n" >> ${DOTENV_PATH}
-        printf "MONGO_DATA_PATH=${MONGO_DATA_PATH}\n" >> ${DOTENV_PATH}
+        printf "POST_USERNAME=${POST_USERNAME}\n" >> ${DOTENV_PATH}
+        printf "POST_PASSWORD=${POST_PASSWORD}\n" >> ${DOTENV_PATH}
+        printf "POST_PORT=${POST_PORT}\n" >> ${DOTENV_PATH}
+        printf "POST_DB=${POST_DB}\n" >> ${DOTENV_PATH}
+        printf "POST_HOST=${POST_HOST}\n" >> ${DOTENV_PATH}
+        printf "POST_DATA_PATH=${POST_DATA_PATH}\n" >> ${DOTENV_PATH}
 
         echo "Movendo para diretório de arquivo de configuração docker-compse..."
         cd dev/${LOCAL_PATH}

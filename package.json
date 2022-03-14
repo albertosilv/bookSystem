@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "post:local": "npm run post:local:setup && cd dev/post-local && docker-compose up -d",
+    "post:local:down": "cd dev/post-local && docker-compose down",
+    "post:local:setup": "node ./dev/setup-post-local.js",
     "start": "node dist/infra/server",
     "dev": "tsnd -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn --exit-child src/infra/server.ts",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
