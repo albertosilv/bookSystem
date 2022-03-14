@@ -1,13 +1,15 @@
 import { Administrator } from '@prisma/client'
 
-import { ICreateUserDTO } from '../dtos/ICreateAdminDTO'
+import { ICreateAdminDTO } from '../dtos/ICreateAdminDTO'
 import { IDeleteAdminDTO } from '../dtos/IDeleteAdminDTO'
 import { IUpdateAdminDTO } from '../dtos/IUpdateAdminDTO'
-
-interface IAdminssRepository {
-  create: (data: ICreateUserDTO) => Promise<Administrator>
-  update: (id: string, data: IUpdateAdminDTO) => Promise<Administrator>
+import { IAddAdminToInstitutionDTO } from '../dtos/IAddAdminToInstitutionDTO'
+interface IAdminsRepository {
+  create: (data: ICreateAdminDTO) => Promise<Administrator>
+  update: (id: number, data: IUpdateAdminDTO) => Promise<Administrator>
   delete: (dataUser: IDeleteAdminDTO) => Promise<void>
+  addToInstitutionId: (id: number, data: IAddAdminToInstitutionDTO) => Promise<void>
+
 }
 
-export { IAdminssRepository }
+export { IAdminsRepository }

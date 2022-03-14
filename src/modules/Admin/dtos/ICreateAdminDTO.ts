@@ -1,8 +1,7 @@
 
-export interface ICreateUserDTO {
+export interface ICreateAdminDTO {
   name: string
   email: string
   password: string
   user: string
-  institutionId: Number
 }

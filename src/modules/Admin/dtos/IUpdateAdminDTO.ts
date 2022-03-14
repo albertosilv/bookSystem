@@ -1,4 +1,5 @@
 export interface IUpdateAdminDTO {
-  ownerUserId: string
-  birthDate: Date
+  name: string
+  email: string
+  passowrd: string
 }

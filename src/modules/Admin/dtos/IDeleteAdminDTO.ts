@@ -1,3 +1,3 @@
 export interface IDeleteAdminDTO {
-  adminId: string
+  adminId: number
 }
