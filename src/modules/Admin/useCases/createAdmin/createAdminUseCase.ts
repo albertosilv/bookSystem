@@ -3,6 +3,7 @@ import { hash } from 'bcrypt'
 import { ICreateAdminDTO } from '@modules/Admin/dtos/ICreateAdminDTO'
 import { IAdminsRepository } from '@modules/Admin/repositories/IAdminRepositories'
 import { CreateTokenValidationUseCase } from '../createtokenValidation/createTokenValidationUseCase'
+import { transporter } from '@config/mail'
 @injectable()
 class CreateAdminUseCase {
   constructor (
@@ -43,20 +44,14 @@ class CreateAdminUseCase {
       token: tokenValidation
     })
 
-    await this.mailProvider.sendEmail({
+    await transporter.sendMail({
+      from: 'noreply@BookSystem.com.br',
+      to: user.email,
       subject: 'Cadastrado com sucesso!',
-      from: {
-        name: 'BookSystem',
-        email: 'noreply@BookSystem.com.br'
-      },
-      to: {
-        name: user.name,
-        email: user.email
-      },
-      body: `
-      <p>Olá ${user.name}</p>
-      <p> token ${tokenValidation}
-      `
+      html: `
+        <p>Olá ${user.name}</p>
+        <p> token ${tokenValidation}
+        `
     })
 
     console.log('Email successfully sent')

@@ -1,35 +1,10 @@
-import SMTPTransport from 'nodemailer/lib/smtp-transport'
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import nodemailer from 'nodemailer'
 
-interface IMailConfig {
-  driver: 'smtp' | 'fake'
-
-  config: {
-    smtp: SMTPTransport.Options
-    fake: object
+export const transporter = nodemailer.createTransport({
+  service: process.env.SERVICE_EMAIL,
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD
   }
-}
-
-const setBoolean = (value: any) => {
-  try {
-    return !(Number(value) > 1)
-  } catch (error) {
-    return false
-  }
-}
-
-export const mailConfig = Object.freeze({
-  driver: process.env.MAIL_DRIVER || 'fake',
-  config: {
-    smtp: {
-      host: process.env.MAIL_SMTP_HOST,
-      port: Number(process.env.MAIL_SMTP_PORT),
-      ssl: setBoolean(process.env.MAIL_SMTP_SSL),
-      tls: setBoolean(process.env.MAIL_SMTP_TLS),
-      auth: {
-        user: process.env.MAIL_SMTP_USERNAME,
-        pass: process.env.MAIL_SMTP_PASSWORD
-      }
-    },
-    fake: {}
-  }
-}) as IMailConfig
+})
