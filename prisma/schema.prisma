@@ -32,6 +32,8 @@ model Administrator {
   password String 
   tokenPassword String?
   tokenPassowordExpired DateTime? 
+  tokenEmail String?
+  tokenEmailExpired DateTime? 
   confirmEmail  Boolean  @default(false)
   institution   Institution?     @relation(fields: [institutionId], references: [id])
   institutionId  Int?

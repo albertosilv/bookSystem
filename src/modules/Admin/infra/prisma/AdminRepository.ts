@@ -6,7 +6,7 @@ import { IAddAdminToInstitutionDTO } from '@modules/Admin/dtos/IAddAdminToInstit
 import { Prisma, Administrator } from '@prisma/client'
 import { prisma } from '@infra/prisma/index'
 import { IAdminsRepository } from '@modules/Admin/repositories/IAdminRepositories'
-class UsersRepository implements IAdminsRepository {
+class AdminRepository implements IAdminsRepository {
   private readonly connection: typeof prisma.administrator
 
   constructor () {
@@ -71,6 +71,19 @@ class UsersRepository implements IAdminsRepository {
     })
   }
 
+  async createTokenValidation (token: string, userId: number): Promise<void> {
+    const data = new Date()
+    data.setHours(data.getDay() + 3)
+    await this.connection.update({
+      where: { id: userId },
+      data: {
+        tokenEmail: token,
+        tokenEmailExpired: data
+      }
+
+    })
+  }
+
   async update (id: number, data: IUpdateAdminDTO): Promise<Administrator> {
     const updateUser = await this.connection.update({
       where: { id },
@@ -87,4 +100,4 @@ class UsersRepository implements IAdminsRepository {
   }
 }
 
-export { UsersRepository }
+export { AdminRepository }
